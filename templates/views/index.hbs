@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{>assets}}
+    <title>Landing Page</title>
+</head>
+
+<body>
+    <div class="main">
+        {{>header}}
+
+        <form action="" id="searchForm">
+            <input type="text" placeholder="Location">
+            <button>Search</button>
+        </form>
+
+        <p id="msg1"></p>
+        <p id="msg2"></p>
+    </div>
+
+    {{>footer}}
+
+    <script>
+
+
+        const form = document.querySelector('#searchForm')
+        const inputText = document.querySelector('#searchForm input')
+        const msg1 = document.querySelector('#msg1')
+        const msg2 = document.querySelector('#msg2')
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+
+            msg1.textContent = 'Loading...'
+            msg2.textContent = ''
+
+            fetch(`./weather?address="${inputText.value}"`).then(response => {
+                response.json().then(data => {
+                    if (data.error) return msg1.textContent = data.error
+
+                    msg1.textContent = data.location
+                    msg2.textContent = data.forecast
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>
