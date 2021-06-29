@@ -7,6 +7,8 @@ const publicDir = path.join(__dirname, '../public')
 const viewsDir = path.join(__dirname, '../templates/views')
 const partialsDir = path.join(__dirname, '../templates/partials')
 
+const port = process.env.PORT || 4000
+
 const app = express()
 
 app.set('view engine', 'hbs')
@@ -81,6 +83,6 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(4000, () => {
+app.listen(port, () => {
     console.log('Runnin');
 })
