@@ -30,7 +30,7 @@ const forecast = (latitude, longitude, callback) => {
         body
     } = {}) => {
         if (error) return callback('Unable to connect. Check your connection.', undefined);
-        if (body.indexOf('<html>') > -1) return callback('Unable to connect. Try again after sometime.', undefined);
+        if (JSON.stringify(body).indexOf('<html>') > -1) return callback('Unable to connect. Try again after sometime.', undefined);
         if (body.error) return callback('Unable to find location.', undefined);
         callback(undefined, `It is currently ${body.current.temperature} degrees. It is ${body.current.weather_descriptions} and feels like ${body.current.feelslike} degrees.`);
 
